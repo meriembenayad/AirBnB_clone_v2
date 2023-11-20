@@ -40,8 +40,10 @@ class BaseModel:
         """
         String representation of the BaseModel instance.
         """
+        dict_copy = self.to_dict()
+        dict_copy.pop('__class__', None)
         return "[{}] ({}) {}".format(
-            self.__class__.__name__, self.id, self.__dict__)
+            self.__class__.__name__, self.id, dict_copy)
 
     def save(self):
         """
