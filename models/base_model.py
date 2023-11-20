@@ -4,9 +4,17 @@ from uuid import uuid4
 from datetime import datetime
 import models
 
+from sqlalchemy import Column, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
 
 class BaseModel:
     """ Define a BaseModel class """
+    id = Column(String(60), nullable=False, primary_key=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow)
 
     def __init__(self, *args, **kwargs):
         """
@@ -27,7 +35,6 @@ class BaseModel:
         else:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            models.storage.new(self)
 
     def __str__(self):
         """
@@ -41,6 +48,7 @@ class BaseModel:
         Method to update the 'updated_at' attribute to the current time
         """
         self.updated_at = datetime.now()
+        models.storage.new(self)
         models.storage.save()
 
     def to_dict(self):
@@ -53,4 +61,11 @@ class BaseModel:
             dictionary[key] = value
             if key == 'created_at' or key == 'updated_at':
                 dictionary[key] = value.isoformat()
+        dictionary.pop('_sa_instance_state', None)
         return dictionary
+
+    def delete(self):
+        """
+            Delete the current instance from storage
+        """
+        models.storage.delete(self)
