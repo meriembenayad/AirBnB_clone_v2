@@ -35,6 +35,7 @@ class DBStorage:
         all_classes = {
             "State": State,
             "City": City,
+            "User": User,
         }
         new_dict = {}
 
