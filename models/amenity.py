@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 """ Define Amenity class """
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
+import os
 
-
-class Amenity(BaseModel):
+class Amenity(BaseModel, Base):
     """ class attributes """
-    name = ""
+    __tablename__ = 'amenities'
 
-    def __init__(self, *args, **kwargs):
-        """ Initialize class instances """
-        super().__init__(*args, **kwargs)
+    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+        name = Column(String(128), nullable=False)
