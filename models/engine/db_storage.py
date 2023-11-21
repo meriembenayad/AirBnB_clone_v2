@@ -38,20 +38,12 @@ class DBStorage:
             "User": User,
         }
         new_dict = {}
-
-        if cls is None:
-            for class_name, class_obj in all_classes.items():
-                objs = self.__session.query(class_obj).all()
+        for clss in all_classes:
+            if cls is None or cls is all_classes[clss] or cls is clss:
+                objs = self.__session.query(all_classes[clss]).all()
                 for obj in objs:
-                    key = "{}.{}".format(class_name, obj.id)
+                    key = obj.__class__.__name__ + '.' + obj.id
                     new_dict[key] = obj
-        elif cls in all_classes:
-            objs = self.__session.query(all_classes[cls]).all()
-            for obj in objs:
-                key = "{}.{}".format(cls, obj.id)
-                new_dict[key] = obj
-        else:
-            print("** class doesn't exist **")
 
         return new_dict
 
