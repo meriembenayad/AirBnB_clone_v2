@@ -2,6 +2,7 @@
 """ Define class Place """
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy.orm import relationship
 
 
 class Place(BaseModel, Base):
@@ -18,8 +19,7 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, default=0, nullable=False)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
-    amenity_ids = []
 
-    def __init__(self, *args, **kwargs):
-        """ Initialize class instances """
-        super().__init__(*args, **kwargs)
+    reviews = relationship('Review', backref='place')
+    amenity_ids = relationship(
+        'Amenity', secondary='place_amenity', back_populates='place_amenities', viewonly=False)
