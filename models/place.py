@@ -5,8 +5,10 @@ from sqlalchemy import Column, String, Integer, Float, ForeignKey, table, MetaDa
 from sqlalchemy.orm import relationship
 import os
 
+metadata = MetaData()
+
 place_amenity = table(
-    'place_amenity', MetaData,
+    'place_amenity', metadata,
     Column('place_id', String(60), ForeignKey('places.id')),
     Column('amenity_id', String(60), ForeignKey('amenities.id'))
 )
