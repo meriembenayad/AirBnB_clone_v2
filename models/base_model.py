@@ -40,8 +40,9 @@ class BaseModel:
         """
         String representation of the BaseModel instance.
         """
-        cls = (str(type(self)).split('.')[-1]).split('\'')[0]
-        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
+        dict_copy = self.to_dict()
+        dict_copy.pop('__class__', None)
+        return '[{}] ({}) {}'.format(self.__class__.__name__, self.id, dict_copy)
 
     def save(self):
         """
@@ -55,14 +56,13 @@ class BaseModel:
         """
         Method to return a dictionary representation of the BaseModel instance
         """
-        dictionary = {}
-        dictionary.update(self.__dict__)
-        dictionary.update({'__class__':
-                          (str(type(self)).split('.')[-1]).split('\'')[0]})
-        dictionary['created_at'] = self.created_at.isoformat()
-        dictionary['updated_at'] = self.updated_at.isoformat()
-        if '_sa_instance_state' in dictionary.keys():
-            del dictionary['_sa_instance_state']
+        dictionary = dict(self.__dict__).copy()
+        dictionary['__class__'] = self.__class__.__name__
+        for key, value in self.__dict__.items():
+            dictionary[key] = value
+            if key == 'created_at' or key == 'updated_at':
+                dictionary[key] = value
+        dictionary.pop('_sa_instance_state', None)
         return dictionary
 
     def delete(self):
