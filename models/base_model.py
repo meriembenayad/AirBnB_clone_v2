@@ -6,6 +6,7 @@ import models
 
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
+from hashlib import md5
 
 Base = declarative_base()
 
@@ -70,3 +71,17 @@ class BaseModel:
             Delete the current instance from storage
         """
         models.storage.delete(self)
+
+    def hash_password(self):
+        """
+        Method to hash the password using SHA-256
+        """
+        if self.password:
+            # Create a hash object using MD5
+            md5 = hashlib.md5()
+            # Update the hash object with the password
+            md5.update(self.password.encode('utf-8'))
+            # Get the hexadecimal representation of the hash
+            hashed_password = md5.hexdigest()
+            # Update the instance's password with the hashed password
+            self.password = hashed_password
