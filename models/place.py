@@ -5,12 +5,11 @@ from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 import os
 
-if os.getenv('HBNB_TYPE_STORAGE') == "db":
-    place_amenity = Table(
-        'place_amenity', Base.metadata,
-        Column('place_id', String(60), ForeignKey('places.id')),
-        Column('amenity_id', String(60), ForeignKey('amenities.id'))
-    )
+place_amenity = Table(
+    'place_amenity', Base.metadata,
+    Column('place_id', String(60), ForeignKey('places.id')),
+    Column('amenity_id', String(60), ForeignKey('amenities.id'))
+)
 
 
 class Place(BaseModel, Base):
@@ -28,11 +27,12 @@ class Place(BaseModel, Base):
         price_by_night = Column(Integer, default=0, nullable=False)
         latitude = Column(Float, nullable=True)
         longitude = Column(Float, nullable=True)
+        amenity_ids = []
 
         reviews = relationship('Review', backref='place',
                                cascade="all, delete")
-        amenity_ids = relationship(
-            'Amenity', secondary='place_amenity', back_populates='place_amenities', viewonly=False)
+        amenities = relationship(
+            'Amenity', secondary=place_amenity, back_populates='place_amenities', viewonly=False)
 
     if os.getenv('HBNB_TYPE_STORAGE') != 'db':
         @property
