@@ -1,17 +1,16 @@
 #!/usr/bin/python3
 """ Define class Place """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Integer, Float, ForeignKey, table, MetaData
+from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 import os
 
-metadata = MetaData()
-
-place_amenity = table(
-    'place_amenity', metadata,
-    Column('place_id', String(60), ForeignKey('places.id')),
-    Column('amenity_id', String(60), ForeignKey('amenities.id'))
-)
+if os.getenv('HBNB_TYPE_STORAGE') == "db":
+    place_amenity = Table(
+        'place_amenity', Base.metadata,
+        Column('place_id', String(60), ForeignKey('places.id')),
+        Column('amenity_id', String(60), ForeignKey('amenities.id'))
+    )
 
 
 class Place(BaseModel, Base):
