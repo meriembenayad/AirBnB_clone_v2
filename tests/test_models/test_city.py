@@ -2,20 +2,33 @@
 """Module for test City class"""
 import unittest
 from models.city import City
-from models.base_model import BaseModel
+from tests.test_models.test_base_model import TestBaseModel
 
 
-class TestCity(unittest.TestCase):
+class TestCity(TestBaseModel):
     """Test City class implementation"""
 
-    def test_class(self):
-        """Validate the types of the attributes an class"""
-        with self.subTest(msg='Inheritance'):
-            self.assertTrue(issubclass(City, BaseModel))
+    def __init__(self, *args, **kwargs):
+        """
+        Initializes the test case for City.
+        """
+        super().__init__(*args, **kwargs)
+        self.name = "City"
+        self.value = City
 
-        with self.subTest(msg='Attributes'):
-            self.assertIsInstance(City.name, str)
-            self.assertIsInstance(City.state_id, str)
+    def test_state_id(self):
+        """
+        Tests the state_id attribute of the City class.
+        """
+        new = self.value()
+        self.assertEqual(type(new.state_id), str)
+
+    def test_name(self):
+        """
+        Tests the name attribute of the City class.
+        """
+        new = self.value()
+        self.assertEqual(type(new.name), str)
 
 
 if __name__ == '__main__':

@@ -5,26 +5,57 @@ from models.place import Place
 from models.base_model import BaseModel
 
 
-class TestPlace(unittest.TestCase):
-    """Test State class implementation"""
+class TestPlace(TestBaseModel):
+    """Test for Place model"""
 
-    def test_class(self):
-        """Validate the types of the attributes an class"""
-        with self.subTest(msg='Inheritance'):
-            self.assertTrue(issubclass(Place, BaseModel))
+    def setUp(self):
+        """Set up test variables."""
+        self.model = Place()
+        self.model_name = "Place"
 
-        with self.subTest(msg='Attributes'):
-            self.assertIsInstance(Place.city_id, str)
-            self.assertIsInstance(Place.user_id, str)
-            self.assertIsInstance(Place.name, str)
-            self.assertIsInstance(Place.description, str)
-            self.assertIsInstance(Place.number_rooms, int)
-            self.assertIsInstance(Place.number_bathrooms, int)
-            self.assertIsInstance(Place.max_guest, int)
-            self.assertIsInstance(Place.price_by_night, int)
-            self.assertIsInstance(Place.latitude, float)
-            self.assertIsInstance(Place.longitude, float)
-            self.assertIsInstance(Place.amenity_ids, list)
+    def test_city_id(self):
+        """Test that city_id is a string."""
+        self.assertEqual(type(self.model.city_id), str)
+
+    def test_user_id(self):
+        """Test that user_id is a string."""
+        self.assertEqual(type(self.model.user_id), str)
+
+    def test_name(self):
+        """Test that name is a string."""
+        self.assertEqual(type(self.model.name), str)
+
+    def test_description(self):
+        """Test that description is a string."""
+        self.assertEqual(type(self.model.description), str)
+
+    def test_number_rooms(self):
+        """Test that number_rooms is an integer."""
+        self.assertEqual(type(self.model.number_rooms), int)
+
+    def test_number_bathrooms(self):
+        """Test that number_bathrooms is an integer."""
+        self.assertEqual(type(self.model.number_bathrooms), int)
+
+    def test_max_guest(self):
+        """Test that max_guest is an integer."""
+        self.assertEqual(type(self.model.max_guest), int)
+
+    def test_price_by_night(self):
+        """Test that price_by_night is an integer."""
+        self.assertEqual(type(self.model.price_by_night), int)
+
+    def test_latitude(self):
+        """Test that latitude is a float."""
+        self.assertEqual(type(self.model.latitude), float)
+
+    def test_longitude(self):
+        """Test that longitude is a float."""
+        self.assertEqual(type(self.model.longitude), float)
+
+    def test_amenity_ids(self):
+        """Test that amenity_ids is a list."""
+        self.assertEqual(type(self.model.amenity_ids), list)
 
 
 if __name__ == '__main__':

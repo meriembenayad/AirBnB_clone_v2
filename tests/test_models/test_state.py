@@ -1,20 +1,31 @@
 #!/usr/bin/python3
-"""Module for test State class"""
+"""
+This module contains the TestState class which inherits from TestBaseModel.
+"""
 import unittest
+from tests.test_models.test_base_model import TestBaseModel
 from models.state import State
-from models.base_model import BaseModel
 
 
-class TestState(unittest.TestCase):
-    """Test State class implementation"""
+class TestState(TestBaseModel):
+    """
+    TestState class to test the State model.
+    """
 
-    def test_class(self):
-        """Validate the types of the attributes an class"""
-        with self.subTest(msg='Inheritance'):
-            self.assertTrue(issubclass(State, BaseModel))
+    def __init__(self, *args, **kwargs):
+        """
+        Initialize the TestState instance.
+        """
+        super().__init__(*args, **kwargs)
+        self.name = "State"
+        self.value = State
 
-        with self.subTest(msg='Attributes'):
-            self.assertIsInstance(State.name, str)
+    def test_name3(self):
+        """
+        Test the name attribute of the State instance.
+        """
+        new = self.value()
+        self.assertEqual(type(new.name), str)
 
 
 if __name__ == '__main__':

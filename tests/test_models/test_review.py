@@ -2,21 +2,36 @@
 """Module for test Review class"""
 import unittest
 from models.review import Review
-from models.base_model import BaseModel
+from tests.test_models.test_base_model import TestBaseModel
 
 
-class TestReview(unittest.TestCase):
+class TestReview(TestBaseModel):
     """Test Review class implementation"""
 
-    def test_class(self):
-        """Validate the types of the attributes an class"""
-        with self.subTest(msg='Inheritance'):
-            self.assertTrue(issubclass(Review, BaseModel))
+    def setUp(self):
+        """
+        Sets up the initial instance of review before each test
+        """
+        self.value = Review()
+        self.name = "Review"
 
-        with self.subTest(msg='Attributes'):
-            self.assertIsInstance(Review.place_id, str)
-            self.assertIsInstance(Review.user_id, str)
-            self.assertIsInstance(Review.text, str)
+    def test_place_id(self):
+        """
+        Test the place_id attribute type
+        """
+        self.assertEqual(type(self.value.place_id), str)
+
+    def test_user_id(self):
+        """
+        Test the user_id attribute type
+        """
+        self.assertEqual(type(self.value.user_id), str)
+
+    def test_text(self):
+        """
+        Test the text attribute type
+        """
+        self.assertEqual(type(self.value.text), str)
 
 
 if __name__ == '__main__':

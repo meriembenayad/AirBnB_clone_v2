@@ -1,23 +1,52 @@
 #!/usr/bin/python3
-"""Module for test User class"""
+"""
+This module contains the TestUser class which inherits from TestBaseModel.
+"""
 import unittest
+from tests.test_models.test_base_model import TestBaseModel
 from models.user import User
-from models.base_model import BaseModel
 
 
-class TestUser(unittest.TestCase):
-    """Test User class implementation"""
+class TestUser(TestBaseModel):
+    """
+    TestUser class to test the User model.
+    """
 
-    def test_class(self):
-        """Validate the types of the attributes an class"""
-        with self.subTest(msg='Inheritance'):
-            self.assertTrue(issubclass(User, BaseModel))
+    def __init__(self, *args, **kwargs):
+        """
+        Initialize the TestUser instance.
+        """
+        super().__init__(*args, **kwargs)
+        self.name = "User"
+        self.value = User
 
-        with self.subTest(msg='Attributes'):
-            self.assertIsInstance(User.email, str)
-            self.assertIsInstance(User.password, str)
-            self.assertIsInstance(User.first_name, str)
-            self.assertIsInstance(User.last_name, str)
+    def test_first_name(self):
+        """
+        Test the first_name attribute of the User instance.
+        """
+        new = self.value()
+        self.assertEqual(type(new.first_name), str)
+
+    def test_last_name(self):
+        """
+        Test the last_name attribute of the User instance.
+        """
+        new = self.value()
+        self.assertEqual(type(new.last_name), str)
+
+    def test_email(self):
+        """
+        Test the email attribute of the User instance.
+        """
+        new = self.value()
+        self.assertEqual(type(new.email), str)
+
+    def test_password(self):
+        """
+        Test the password attribute of the User instance.
+        """
+        new = self.value()
+        self.assertEqual(type(new.password), str)
 
 
 if __name__ == '__main__':
