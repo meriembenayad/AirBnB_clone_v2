@@ -35,7 +35,8 @@ class BaseModel:
             Method returns string represention of the instance
             including class name, id, and other attributes
         """
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(
+            self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
         """ Method updates the 'updated_at' attribute to current datetime """

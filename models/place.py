@@ -33,7 +33,8 @@ class Place(BaseModel, Base):
         reviews = relationship('Review', backref='place',
                                cascade="all, delete")
         amenities = relationship(
-            'Amenity', secondary=place_amenity, back_populates='place_amenities', viewonly=False)
+            'Amenity', secondary=place_amenity,
+            back_populates='place_amenities', viewonly=False)
 
     else:
         city_id = ""
@@ -51,8 +52,10 @@ class Place(BaseModel, Base):
         @property
         def reviews(self):
             """
-                Getter attribute reviews that returns the list of Review instances
+                Getter attribute reviews that returns the list
+                of Review instances
                 with place_id equals to the current Place.id
             """
             from models import storage
-            return [review for review in storage.all(Review).values() if review.place_id == self.id]
+            return [review for review in storage.all(Review).values()
+                    if review.place_id == self.id]

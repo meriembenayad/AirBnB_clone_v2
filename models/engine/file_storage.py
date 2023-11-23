@@ -23,9 +23,10 @@ class FileStorage:
         if cls is None:
             return self.__objects
         else:
+            className = cls.__name__
             result_all = {}
             for key, value in self.__objects.items():
-                if type(value) == cls:
+                if key.split('.')[0] == className:
                     result_all[key] = value
             return result_all
 
