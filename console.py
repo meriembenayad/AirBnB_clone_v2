@@ -51,87 +51,39 @@ class HBNBCommand(cmd.Cmd):
         """ An empty line + ENTER shouldn't execute anything """
         pass
 
-    def parse_value(self, value):
-        """cast string to float or int if possible"""
-        is_valid_value = True
-        # To be a valid string it must be of at least length 2 i.e. ""
-        # To be a valid string it must begin and end with
-        # double quoatation i.e. "sdsds"
-        if len(value) >= 2 and value[0] == '"'\
-                and value[len(value) - 1] == '"':
-            value = value[1:-1]
-            value = value.replace("_", " ")
-        else:
-            try:
-                if "." in value:
-                    value = float(value)
-                else:
-                    value = int(value)
-            except ValueError:
-                is_valid_value = False
-
-        if is_valid_value:
-            return value
-        else:
-            return None
-    valid_keys = {
-        "BaseModel": ["id", "created_at", "updated_at"],
-        "User": [
-            "id",
-            "created_at",
-            "updated_at",
-            "email",
-            "password",
-            "first_name",
-            "last_name",
-        ],
-        "City": ["id", "created_at", "updated_at", "state_id", "name"],
-        "State": ["id", "created_at", "updated_at", "name"],
-        "Place": [
-            "id",
-            "created_at",
-            "updated_at",
-            "city_id",
-            "user_id",
-            "name",
-            "description",
-            "number_rooms",
-            "number_bathrooms",
-            "max_guest",
-            "price_by_night",
-            "latitude",
-            "longitude",
-            "amenity_ids"
-        ],
-        "Amenity": ["id", "created_at", "updated_at", "name"],
-        "Review": ["id", "created_at", "updated_at",
-                   "place_id", "user_id", "text"],
-    }
-
-    def do_create(self, args):
-        """Create an object of any class"""
+    def do_create(self, arg):
+        """
+            Creates a new instance of BaseModel,
+            saves it (to the JSON file) and prints the id
+            Usage: create <class name> <param 1> <param 2> <param 3>...
+        """
+        args = shlex.split(arg)
         if not args:
             print("** class name missing **")
-            return
-        args_array = args.split()
-        class_name = args_array[0]
-        if class_name not in HBNBCommand.__classes:
+        elif args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
-            return
-        new_instance = HBNBCommand.__classes[class_name]()
-        for param_index in range(1, len(args_array)):
-            param_array = args_array[param_index].split("=")
-            if len(param_array) == 2:
-                key = param_array[0]
-                if key not in HBNBCommand.valid_keys[class_name]:
-                    continue
-                value = self.parse_value(param_array[1])
-                if value is not None:
-                    setattr(new_instance, key, value)
-            else:
-                pass
-        new_instance.save()
-        print(new_instance.id)
+        else:
+            my_model = HBNBCommand.__classes[args[0]]()
+            for param in args[1:]:
+                try:
+                    key, value = param.split("=")
+                    # Replace "_" by " " for string type
+                    if value == '"':
+                        value = value.replace('_', ' ')
+                    # convert value to int, float or keep it string
+                    try:
+                        value = int(value)
+                    except ValueError:
+                        try:
+                            value = float(value)
+                        except ValueError:
+                            value = str(value)
+                    setattr(my_model, key, value)
+                except:
+                    pass
+
+            my_model.save()
+            print(my_model.id)
 
     def do_show(self, arg):
         """
