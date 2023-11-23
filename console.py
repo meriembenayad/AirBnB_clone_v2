@@ -195,6 +195,34 @@ class HBNBCommand(cmd.Cmd):
         setattr(obj, args[2], args[3].lstrip('"').rstrip('"'))
         storage.save()
 
+    def default(self, line):
+        """
+            Method called on input when the command prefix is not recognized.
+            In this case it will be used to handle:
+                - <class name>.all()
+                - <class name>.count()
+                - <class name>.show(<id>)
+        """
+        split_line = line.split(".")
+        if len(split_line) != 2:
+            print("** invalid command **")
+
+        cls_name = split_line[0]
+        meth_arg = split_line[1].split("(")
+        if len(meth_arg) != 2:
+            print("** invalid command **")
+
+        method = meth_arg[0]
+        arg = meth_arg[1].strip(")")
+        if method == "all":
+            self.do_all(cls_name)
+        elif method == "count":
+            self.do_count(cls_name)
+        elif method == "show":
+            self.do_show(cls_name + " " + arg)
+        elif method == "destroy":
+            self.do_destroy(cls_name + " " + arg)
+
     def do_count(self, arg):
         """
             Prints numbers of instances based on the class name.
