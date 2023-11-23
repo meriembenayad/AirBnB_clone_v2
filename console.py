@@ -57,7 +57,7 @@ class HBNBCommand(cmd.Cmd):
             saves it (to the JSON file) and prints the id
             Usage: create <class name> <param 1> <param 2> <param 3>...
         """
-        args = shlex.split(arg)
+        args = arg.split()
         if not args:
             print("** class name missing **")
         elif args[0] not in HBNBCommand.__classes:
@@ -67,21 +67,22 @@ class HBNBCommand(cmd.Cmd):
             for param in args[1:]:
                 try:
                     key, value = param.split("=")
+                    if key not in HBNBCommand.valid_keys[args[0]]:
+                        continue
                     # Replace "_" by " " for string type
-                    if value == '"':
+                    if '"' in value:
                         value = value.replace('_', ' ')
                     # convert value to int, float or keep it string
                     try:
-                        value = int(value)
-                    except ValueError:
-                        try:
+                        if "." in value:
                             value = float(value)
-                        except ValueError:
-                            value = str(value)
+                        else:
+                            value = int(value)
+                    except ValueError:
+                        value = str(value)
                     setattr(my_model, key, value)
                 except:
                     pass
-
             my_model.save()
             print(my_model.id)
 
