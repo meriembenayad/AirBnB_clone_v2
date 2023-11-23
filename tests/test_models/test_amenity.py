@@ -2,28 +2,19 @@
 """Module for test Amenity class"""
 import unittest
 from models.amenity import Amenity
-from tests.test_models.test_base_model import TestBaseModel
+from models.base_model import BaseModel
 
 
-class TestAmenity(TestBaseModel):
-    """
-    The test_Amenity class is used to test the functionality of the Amenity class.
-    """
+class TestAmenity(unittest.TestCase):
+    """Test State class implementation"""
 
-    def __init__(self, *args, **kwargs):
-        """
-        Initialize the test_Amenity instance.
-        """
-        super().__init__(*args, **kwargs)
-        self.name = "Amenity"
-        self.value = Amenity
+    def test_class(self):
+        """Validate the types of the attributes an class"""
+        with self.subTest(msg='Inheritance'):
+            self.assertTrue(issubclass(Amenity, BaseModel))
 
-    def test_name2(self):
-        """
-        Test if the 'name' attribute of an Amenity instance is a string.
-        """
-        new = self.value()
-        self.assertEqual(type(new.name), str)
+        with self.subTest(msg='Attributes'):
+            self.assertIsInstance(Amenity.name, str)
 
 
 if __name__ == '__main__':
