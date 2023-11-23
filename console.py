@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Command Interpreter """
 import cmd
+import sys
 import shlex
 from models.base_model import BaseModel
 from models import storage
@@ -13,8 +14,8 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
-    """  """
-    prompt = '(hbnb) '
+    """ HBNBCommand class """
+    prompt = '(hbnb) ' if sys.__stdin__.isatty() else ""
 
     __classes = {
         "BaseModel": BaseModel,
@@ -26,13 +27,25 @@ class HBNBCommand(cmd.Cmd):
         "Review": Review,
     }
 
+    def preloop(self):
+        """ Prints if isatty is false """
+        if not sys.__stdin__.isatty():
+            print("(hbnb)")
+
+    def postcmd(self, stop, line):
+        """ Prints if isatty is false """
+        if not sys.__stdin__.isatty():
+            print("(hbnb) ", end="")
+        return stop
+
     def do_quit(self, arg):
         """ Quit command to exit the program """
         return True
 
     def do_EOF(self, arg):
         """ EOF command to exit the program """
-        return True
+        print()
+        exit()
 
     def emptyline(self):
         """ An empty line + ENTER shouldn't execute anything """
