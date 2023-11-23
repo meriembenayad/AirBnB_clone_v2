@@ -57,34 +57,27 @@ class HBNBCommand(cmd.Cmd):
             saves it (to the JSON file) and prints the id
             Usage: create <class name> <param 1> <param 2> <param 3>...
         """
-        args = arg.split()
+        n_args = args.split()
         if not args:
             print("** class name missing **")
-        elif args[0] not in HBNBCommand.__classes:
+            return
+        elif n_args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
-        else:
-            my_model = HBNBCommand.__classes[args[0]]()
-            for param in args[1:]:
-                try:
-                    key, value = param.split("=")
-                    if key not in HBNBCommand.valid_keys[args[0]]:
-                        continue
-                    # Replace "_" by " " for string type
-                    if '"' in value:
-                        value = value.replace('_', ' ')
-                    # convert value to int, float or keep it string
-                    try:
-                        if "." in value:
-                            value = float(value)
-                        else:
-                            value = int(value)
-                    except ValueError:
-                        value = str(value)
-                    setattr(my_model, key, value)
-                except:
-                    pass
-            my_model.save()
-            print(my_model.id)
+            return
+        new_instance = HBNBCommand.__classes[n_args[0]]()
+        if os.getenv('HBNB_TYPE_STORAGE') != "db":
+            new_instance.save()
+        for n in range(len(n_args) - 1):
+            try:
+                self.do_update("{} {} {} {}"
+                               .format(n_args[0], new_instance.id, n_args[n + 1]
+                                       .split('=')[0], n_args[n + 1].split('=')[1].replace('_', ' ')),
+                               new_instance)
+            except IndexError:
+                pass
+        print(new_instance.id)
+        if os.getenv('HBNB_TYPE_STORAGE') == "db":
+            new_instance.save()
 
     def do_show(self, arg):
         """
