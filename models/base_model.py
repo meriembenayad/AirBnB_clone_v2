@@ -38,13 +38,9 @@ class BaseModel:
                     setattr(self, key, value)
 
     def __str__(self):
-        """
-        String representation of the BaseModel instance.
-        """
-        dict_copy = self.__dict__.copy()
-        del dict_copy['_sa_instance_state']
-        dict_copy.pop('__class__', None)
-        return '[{}] ({}) {}'.format(self.__class__.__name__, self.id, dict_copy)
+        """Returns a string representation of the instance"""
+        cls = (str(type(self)).split('.')[-1]).split('\'')[0]
+        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
 
     def save(self):
         """

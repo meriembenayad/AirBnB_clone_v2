@@ -4,6 +4,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 import os
+from models.review import Review
 
 place_amenity = Table(
     'place_amenity', Base.metadata,
@@ -34,7 +35,19 @@ class Place(BaseModel, Base):
         amenities = relationship(
             'Amenity', secondary=place_amenity, back_populates='place_amenities', viewonly=False)
 
-    if os.getenv('HBNB_TYPE_STORAGE') != 'db':
+    else:
+        city_id = ""
+        user_id = ""
+        name = ""
+        description = ""
+        number_rooms = 0
+        number_bathrooms = 0
+        max_guest = 0
+        price_by_night = 0
+        latitude = 0.0
+        longitude = 0.0
+        amenity_ids = []
+
         @property
         def reviews(self):
             """
