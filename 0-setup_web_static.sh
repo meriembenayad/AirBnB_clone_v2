@@ -4,7 +4,6 @@
 # Check if nginx is installed
 if ! command -v nginx &> /dev/null
 then
-	echo "nginx is not installed. Installing now..."
 	# Update package lists
 	sudo apt-get -y update
 	# Install nginx
@@ -12,7 +11,7 @@ then
 	# start nginx
 	sudo service nginx start
 else
-	echo "nginx is already installed"
+	pass
 fi
 
 # Create directories if not exists
@@ -23,6 +22,7 @@ sudo mkdir -p /data/web_static/shared/
 echo "
 <html>
 	<head>
+		<title>FACTS</title>
 	</head>
 	<body>
   		<h1>Why do programmers prefer dark mode?</h1>
@@ -37,10 +37,10 @@ echo "
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 # Give ownership of the /data/ folder to the ubuntu user AND group
-sudo chmod -R ubuntu:ubuntu /data/
+sudo chown -R ubuntu:ubuntu /data/
 
 # Update the Nginx configuration to serve the content of /data/web_static/current/ to hbnb_static
-sudo sed -i '$a location /hbnb_static/ {\n    alias /data/web_static/current/;\n    autoindex off;\n}' /etc/nginx/sites-available/default
+sudo sed -i '39 i\ \tlocation /hbnb_static {\n\t\talias /data/web_static/current;\n\t}\n' /etc/nginx/sites-enabled/default
 
 # Restart nginx
 sudo service nginx restart
