@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-""" Fabric script that generates a .tgz archive and deploys it to web servers """
+"""
+Fabric script that generates a .tgz archive
+and deploys it to web servers
+"""
 from fabric.api import local, put, run, env
 from datetime import datetime
 from os import path, mkdir
@@ -32,7 +35,7 @@ def do_pack():
 
 
 def do_deploy(archive_path):
-    """ 
+    """
     Distributes an archive to the web servers.
     """
     if not path.exists(archive_path):
@@ -53,7 +56,7 @@ def do_deploy(archive_path):
         run("rm /tmp/{}".format(file_name))
         # Delete the symbolic link /data/web_static/current from the web server
         run("rm -rf /data/web_static/current")
-        # Create a new the symbolic link /data/web_static/current on the web server
+        # Create a new symbolic link /data/web_static/current on the web server
         run("ln -s {} /data/web_static/current".format(dir_release))
         return True
     except FileNotFoundError:
