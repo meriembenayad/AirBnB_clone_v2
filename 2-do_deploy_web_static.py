@@ -58,6 +58,7 @@ def do_deploy(archive_path):
         run("rm -rf /data/web_static/current")
         # Create a new symbolic link /data/web_static/current on the web server
         run("ln -s {} /data/web_static/current".format(dir_release))
+        print("New version deployed!")
         return True
     except FileNotFoundError:
         return False
