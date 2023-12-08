@@ -54,6 +54,10 @@ def do_deploy(archive_path):
         run("tar -xzf /tmp/{} -C {}".format(file_name, dir_release))
         # Delete the archive from the web server
         run("rm /tmp/{}".format(file_name))
+        # Move extraction to proper directory
+        run('mv {0}/web_static/* {0}/'.format(dir_release))
+        # Delete first copy of extraction after move
+        run('rm -rf {}/web_static'.format(dir_release))
         # Delete the symbolic link /data/web_static/current from the web server
         run("rm -rf /data/web_static/current")
         # Create a new symbolic link /data/web_static/current on the web server
