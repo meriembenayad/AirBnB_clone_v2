@@ -2,6 +2,7 @@
 """
 Creates and distributes an archive to your web servers
 """
+from fabric.api import env
 do_pack = __import__('2-do_deploy_web_static').do_pack
 do_deploy = __import__('2-do_deploy_web_static').do_deploy
 
