@@ -64,5 +64,6 @@ def do_deploy(archive_path):
         run("ln -s {} /data/web_static/current".format(dir_release))
         print("New version deployed!")
         return True
-    except FileNotFoundError:
+    except Exception:
+        print("No new version deployed!")
         return False
