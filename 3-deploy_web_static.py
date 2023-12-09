@@ -66,10 +66,10 @@ def do_deploy(archive_path):
         print("New version deployed!")
         return True
     except FileNotFoundError:
+        print("No new version deployed!")
         return False
 
 
-@task
 def deploy():
     """
     Creates & Distributes an archive to the web servers.
