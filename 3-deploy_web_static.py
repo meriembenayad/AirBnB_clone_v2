@@ -2,7 +2,7 @@
 """
 Creates and distributes an archive to your web servers
 """
-from fabric.api import local, put, run, env
+from fabric.api import local, put, run, env, runs_once
 from datetime import datetime
 from os import path, mkdir
 
@@ -11,6 +11,7 @@ env.user = 'ubuntu'
 env.keypriv = '~/.ssh/id_rsa'
 
 
+@runs_once
 def do_pack():
     """
     Generates a .tgz archive from the contents of the web_static folder.
