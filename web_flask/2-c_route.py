@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from flask import Flask
-
+""" /c/<text> """
 app = Flask(__name__)
 
 
@@ -16,8 +16,7 @@ def hbnb():
 
 @app.route('/c/<text>', strict_slashes=False)
 def c_text(text):
-    """ return f"C {text.replace('_', ' ')}" """
-    return "C {}".format(text.replace('_', ' '))
+    return f"C {text.replace('_', ' ')}"
 
 
 if __name__ == '__main__':
