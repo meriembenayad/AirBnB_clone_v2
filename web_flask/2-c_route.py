@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from flask import Flask, render_template
+from flask import Flask
 
 app = Flask(__name__)
 
@@ -14,10 +14,9 @@ def hbnb():
     return 'HBNB'
 
 
-@app.route('/c/')
 @app.route('/c/<text>', strict_slashes=False)
-def c_text(text=None):
-    return render_template('c', text='_')
+def c_text(text):
+    return f"C {text.replace('_', ' ')}"
 
 
 if __name__ == '__main__':
