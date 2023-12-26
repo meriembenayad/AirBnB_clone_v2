@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-""" HBNB """
-from flask import Flask, request
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -13,6 +12,12 @@ def hello():
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
     return 'HBNB'
+
+
+@app.route('/c/')
+@app.route('/c/<text>', strict_slashes=False)
+def c_text(text=None):
+    return render_template('c', text='_')
 
 
 if __name__ == '__main__':

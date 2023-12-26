@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Hello Flask """
+""" Hello HBNB """
 from flask import Flask, request
 
 app = Flask(__name__)
