@@ -1,14 +1,24 @@
-## . AirBnB clone - MySQL
+## . AirBnB clone - Web framework
 ### Background Context
 
-Environment variables will be your best friend for this project!
+## Resources
 
-- `HBNB_ENV`: running environment. It can be “dev” or “test” for the moment (“production” soon!)
-- `HBNB_MYSQL_USER`: the username of your MySQL
-- `HBNB_MYSQL_PWD`: the password of your MySQL
-- `HBNB_MYSQL_HOST`: the hostname of your MySQL
-- `HBNB_MYSQL_DB`: the database name of your MySQL
-- `HBNB_TYPE_STORAGE`: the type of storage used. It can be “file” (using `FileStorage`) or `db` (using `DBStorage`)
+**Read or watch**:
+
+- [What is a Web Framework?](https://intelegain-technologies.medium.com/what-are-web-frameworks-and-why-you-need-them-c4e8806bd0fb)
+- [A Minimal Application](https://flask.palletsprojects.com/en/2.3.x/quickstart/#a-minimal-application)
+- [Routing](https://flask.palletsprojects.com/en/2.3.x/quickstart/#routing)
+- [Rendering Templates](https://flask.palletsprojects.com/en/2.3.x/quickstart/#rendering-templates)
+- [Synopsis](https://jinja.palletsprojects.com/en/2.9.x/templates/#synopsis)
+- [Variables](https://jinja.palletsprojects.com/en/2.9.x/templates/#variables)
+- [Comments](https://jinja.palletsprojects.com/en/2.9.x/templates/#comments)
+- [Whitespace Control](https://jinja.palletsprojects.com/en/2.9.x/templates/#whitespace-control)
+- [List of Control Structures](https://jinja.palletsprojects.com/en/2.9.x/templates/#list-of-control-structures)
+- [Flask](https://palletsprojects.com/p/flask/)
+- [Jinja](https://jinja.palletsprojects.com/en/2.9.x/templates/)
+
+#### Recommended YouTube playlist to get you started
+![playlist](https://s3.amazonaws.com/intranet-projects-files/concepts/74/hbnb_step3.png)
 
 ### Resources
 
