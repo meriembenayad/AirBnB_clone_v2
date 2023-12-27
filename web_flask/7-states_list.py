@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""  """
+""" List of states """
 from flask import Flask, render_template
 from models import storage
 
