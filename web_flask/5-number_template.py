@@ -31,12 +31,13 @@ def pythonText(text="is cool"):
 
 @app.route('/number/<int:n>', strict_slashes=False)
 def numberN(n):
-    """ Number """
+    """ n is a number """
     return f"{n} is a number"
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def numberTemplate(n):
+    """ HTML if n is a number """
     return render_template('5-number.html', n=n)
 
 

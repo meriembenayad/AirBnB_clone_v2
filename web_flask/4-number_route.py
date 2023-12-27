@@ -31,7 +31,7 @@ def pythonText(text="is cool"):
 
 @app.route('/number/<int:n>', strict_slashes=False)
 def numberN(n):
-    """ Number """
+    """ n is a number """
     return f"{n} is a number"
 
 
