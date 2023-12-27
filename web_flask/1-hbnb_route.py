@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ HBNB """
-from flask import Flask, request
+from flask import Flask
 
 app = Flask(__name__)
 
