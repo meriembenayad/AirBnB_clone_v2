@@ -23,7 +23,7 @@ class FileStorage:
         if cls is None:
             return self.__objects
         else:
-            className = cls.__name__
+            className = cls if isinstance(cls, str) else cls.__name__
             result_all = {}
             for key, value in self.__objects.items():
                 if key.split('.')[0] == className:
