@@ -29,12 +29,14 @@
 }
 
 .popover {
+	position: relative;
 	list-style-type: none;
 	display: none;
 	background-color: #FAFAFA;
 	width: 100%;
 	max-height: 300px;
 	overflow: auto;
+	z-index: 1;
 
 	margin-left: -1px;
 	margin-top: 8px;
